@@ -1,0 +1,11 @@
+https://josipfranjkovic.blogspot.com/2014/12/reading-local-files-from-facebooks.html
+Couple tries later I uploaded a zipped .php file, and the response contained unzipped, base64'd contents of .php. If you read Facebook's "Bounty hunter's guide" you will know where this leads.
+The guide describes how one researcher uploaded zip with symlink to /etc/passwd, and couple steps later Facebook returned few lines of /etc/passwd.
+
+I have done exactly the same, so:
+1. create a symlink to /etc/passwd (or any other file you want to read)
+ ln -s /etc/passwd link
+2. zip the created link while preserving symlinks:
+ zip --symlinks test.zip link
+3. upload test.zip as your resume, system will unzip it
+4. the response to POST will have details of (whole) /etc/passwd or other file. 
